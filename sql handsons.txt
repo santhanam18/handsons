@@ -1,0 +1,211 @@
+mysql> create database electricity_connection_type;
+Query OK, 1 row affected (0.53 sec)
+
+mysql> show databases;
++-----------------------------+
+| Database                    |
++-----------------------------+
+| electricity_connection_type |
+| information_schema          |
+| mysql                       |
+| performance_schema          |
+| sakila                      |
+| sys                         |
+| world                       |
++-----------------------------+
+7 rows in set (0.00 sec)
+mysql> use electricity_connection_type;
+Database changed
+mysql> create table slab (id int,connection_type_id int,from_unit int NOT NULL,to_unit int NOT NULL,rate double NOT NULL,PRIMARY KEY(id,connection_type_id));
+Query OK, 0 rows affected (0.51 sec)
+
+mysql> desc slab;
++--------------------+--------+------+-----+---------+-------+
+| Field              | Type   | Null | Key | Default | Extra |
++--------------------+--------+------+-----+---------+-------+
+| id                 | int    | NO   | PRI | NULL    |       |
+| connection_type_id | int    | NO   | PRI | NULL    |       |
+| from_unit          | int    | NO   |     | NULL    |       |
+| to_unit            | int    | NO   |     | NULL    |       |
+| rate               | double | NO   |     | NULL    |       |
++--------------------+--------+------+-----+---------+-------+
+5 rows in set (0.23 sec)
+mysql> create table building_type (id int,name varchar(100) NOT NULL, connection_type_id int NOT NULL,PRIMARY KEY(id));
+Query OK, 0 rows affected (0.54 sec)
+
+mysql> desc building_type;
++--------------------+--------------+------+-----+---------+-------+
+| Field              | Type         | Null | Key | Default | Extra |
++--------------------+--------------+------+-----+---------+-------+
+| id                 | int          | NO   | PRI | NULL    |       |
+| name               | varchar(100) | NO   |     | NULL    |       |
+| connection_type_id | int          | NO   |     | NULL    |       |
++--------------------+--------------+------+-----+---------+-------+
+3 rows in set (0.09 sec)
+mysql> create table building (id int,owner_name varchar(100) NOT NULL,address varchar(100) NOT NULL,building_type_id int NOT NULL,contact_number varchar(100) NOT NULL,email_address varchar(100),PRIMARY KEY (id));
+Query OK, 0 rows affected (0.45 sec)
+
+mysql> desc building;
++------------------+--------------+------+-----+---------+-------+
+| Field            | Type         | Null | Key | Default | Extra |
++------------------+--------------+------+-----+---------+-------+
+| id               | int          | NO   | PRI | NULL    |       |
+| owner_name       | varchar(100) | NO   |     | NULL    |       |
+| address          | varchar(100) | NO   |     | NULL    |       |
+| building_type_id | int          | NO   |     | NULL    |       |
+| contact_number   | varchar(100) | NO   |     | NULL    |       |
+| email_address    | varchar(100) | YES  |     | NULL    |       |
++------------------+--------------+------+-----+---------+-------+
+6 rows in set (0.12 sec)
+mysql> alter table building DROP COLUMN owner_name;
+Query OK, 0 rows affected (2.12 sec)
+mysql> alter table building  ADD building_owner_name varchar(100);
+Query OK, 0 rows affected (0.40 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc building;
++---------------------+--------------+------+-----+---------+-------+
+| Field               | Type         | Null | Key | Default | Extra |
++---------------------+--------------+------+-----+---------+-------+
+| id                  | int          | NO   | PRI | NULL    |       |
+| address             | varchar(100) | NO   |     | NULL    |       |
+| building_type_id    | int          | NO   |     | NULL    |       |
+| contact_number      | varchar(100) | NO   |     | NULL    |       |
+| email_address       | varchar(100) | YES  |     | NULL    |       |
+| building_owner_name | varchar(100) | YES  |     | NULL    |       |
++---------------------+--------------+------+-----+---------+-------+
+6 rows in set (0.08 sec)
+mysql> alter table building MODIFY address varchar(255);
+Query OK, 0 rows affected (1.84 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc building;
++---------------------+--------------+------+-----+---------+-------+
+| Field               | Type         | Null | Key | Default | Extra |
++---------------------+--------------+------+-----+---------+-------+
+| id                  | int          | NO   | PRI | NULL    |       |
+| address             | varchar(255) | YES  |     | NULL    |       |
+| building_type_id    | int          | NO   |     | NULL    |       |
+| contact_number      | varchar(100) | NO   |     | NULL    |       |
+| email_address       | varchar(100) | YES  |     | NULL    |       |
+| building_owner_name | varchar(100) | YES  |     | NULL    |       |
++---------------------+--------------+------+-----+---------+-------+
+6 rows in set (0.07 sec)
+mysql> alter table building RENAME TO building_details;
+Query OK, 0 rows affected (0.35 sec)
+
+mysql> desc building_details;
++---------------------+--------------+------+-----+---------+-------+
+| Field               | Type         | Null | Key | Default | Extra |
++---------------------+--------------+------+-----+---------+-------+
+| id                  | int          | NO   | PRI | NULL    |       |
+| address             | varchar(255) | YES  |     | NULL    |       |
+| building_type_id    | int          | NO   |     | NULL    |       |
+| contact_number      | varchar(100) | NO   |     | NULL    |       |
+| email_address       | varchar(100) | YES  |     | NULL    |       |
+| building_owner_name | varchar(100) | YES  |     | NULL    |       |
++---------------------+--------------+------+-----+---------+-------+
+6 rows in set (0.12 sec)
+mysql> DROP TABLE slab;
+Query OK, 0 rows affected (0.69 sec)
+
+mysql> DROP TABLE building_details;
+Query OK, 0 rows affected (0.66 sec)
+
+mysql> show tables;
++---------------------------------------+
+| Tables_in_electricity_connection_type |
++---------------------------------------+
+| building_type                         |
++---------------------------------------+
+1 row in set (0.10 sec)
+mysql> create table electricity_connection_type (id int,connection_name varchar(100) NOT NULL,PRIMARY KEY(id));
+Query OK, 0 rows affected (1.20 sec)
+
+mysql> INSERT INTO electricity_connection_type values (1,'WIFI');
+Query OK, 1 row affected (0.15 sec)
+
+mysql> INSERT INTO electricity_connection_type values (2,'broadband_connection');
+Query OK, 1 row affected (0.41 sec)
+
+mysql> desc electricity_connection_type;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| id              | int          | NO   | PRI | NULL    |       |
+| connection_name | varchar(100) | NO   |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+2 rows in set (0.35 sec)
+
+mysql> select * from electricity_connection_type;
++----+----------------------+
+| id | connection_name      |
++----+----------------------+
+|  1 | WIFI                 |
+|  2 | broadband_connection |
++----+----------------------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO slab values (1,2,100,500,5.3);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> INSERT INTO slab values (2,7,600,900,9.3);
+Query OK, 1 row affected (0.22 sec)
+
+mysql> INSERT INTO slab values (3,9,800,1000,9.9);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select * from slab;
++----+--------------------+-----------+---------+------+
+| id | connection_type_id | from_unit | to_unit | rate |
++----+--------------------+-----------+---------+------+
+|  1 |                  2 |       100 |     500 |  5.3 |
+|  2 |                  7 |       600 |     900 |  9.3 |
+|  3 |                  9 |       800 |    1000 |  9.9 |
++----+--------------------+-----------+---------+------+
+3 rows in set (0.00 sec)
+mysql> INSERT INTO building_type values (1,'santha',21);
+Query OK, 1 row affected (0.38 sec)
+
+mysql> INSERT INTO building_type values (2,'steve',22);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> INSERT INTO building_type values (3,'sam',23);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> INSERT INTO building_type values (4,'curran',24);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> INSERT INTO building_type values (5,'dhoni',7);
+Query OK, 1 row affected (0.44 sec)
+
+mysql> select * from building_type;
++----+--------+--------------------+
+| id | name   | connection_type_id |
++----+--------+--------------------+
+|  1 | santha |                 21 |
+|  2 | steve  |                 22 |
+|  3 | sam    |                 23 |
+|  4 | curran |                 24 |
+|  5 | dhoni  |                  7 |
++----+--------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> DELETE FROM slab;
+Query OK, 3 rows affected (0.16 sec)
+
+mysql> select * from slab;
+Empty set (0.00 sec)
+mysql> delete FROM building_type WHERE connection_type_id = 24;
+Query OK, 1 row affected (0.18 sec)
+
+mysql> select * from building_type;
++----+--------+--------------------+
+| id | name   | connection_type_id |
++----+--------+--------------------+
+|  1 | santha |                 21 |
+|  2 | steve  |                 22 |
+|  3 | sam    |                 23 |
+|  5 | dhoni  |                  7 |
++----+--------+--------------------+
+4 rows in set (0.00 sec)

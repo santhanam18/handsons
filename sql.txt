@@ -1,0 +1,177 @@
+mysql> select * from building_type order by id;
++----+--------+--------------------+
+| id | name   | connection_type_id |
++----+--------+--------------------+
+|  1 | santha |                 21 |
+|  2 | steve  |                 22 |
+|  3 | sam    |                 23 |
+|  5 | dhoni  |                  7 |
++----+--------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from building_type order by name;
++----+--------+--------------------+
+| id | name   | connection_type_id |
++----+--------+--------------------+
+|  5 | dhoni  |                  7 |
+|  3 | sam    |                 23 |
+|  1 | santha |                 21 |
+|  2 | steve  |                 22 |
++----+--------+--------------------+
+4 rows in set (0.05 sec)
+mysql> create table building (id int,owner_name varchar(100) NOT NULL,address varchar(100) NOT NULL,building_type_id int NOT NULL,contact_number varchar(100) NOT NULL,email_address varchar(100),PRIMARY KEY (id));
+Query OK, 0 rows affected (0.91 sec)
+mysql> INSERT INTO building values (1,'dhoni','chennai',12,7,'dhoni@gmail.com');
+Query OK, 1 row affected (0.16 sec)
+
+mysql> INSERT INTO building values (2,'watson','australia',23,33,'watson@gmail.com');
+Query OK, 1 row affected (0.29 sec)
+
+mysql> INSERT INTO building values (3,'fab','southafrica',34,12,'fab@gmail.com');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from building;
++----+------------+-------------+------------------+----------------+------------------+
+| id | owner_name | address     | building_type_id | contact_number | email_address    |
++----+------------+-------------+------------------+----------------+------------------+
+|  1 | dhoni      | chennai     |               12 | 7              | dhoni@gmail.com  |
+|  2 | watson     | australia   |               23 | 33             | watson@gmail.com |
+|  3 | fab        | southafrica |               34 | 12             | fab@gmail.com    |
++----+------------+-------------+------------------+----------------+------------------+
+3 rows in set (0.00 sec)
+mysql> select CONCAT(contact_number,email_address) AS contact_number FROM building;
++--------------------+
+| contact_number     |
++--------------------+
+| 7dhoni@gmail.com   |
+| 33watson@gmail.com |
+| 12fab@gmail.com    |
++--------------------+
+3 rows in set (0.08 sec)
+
+mysql> select * from building order by owner_name;
++----+------------+-------------+------------------+----------------+------------------+
+| id | owner_name | address     | building_type_id | contact_number | email_address    |
++----+------------+-------------+------------------+----------------+------------------+
+|  1 | dhoni      | chennai     |               12 | 7              | dhoni@gmail.com  |
+|  3 | fab        | southafrica |               34 | 12             | fab@gmail.com    |
+|  2 | watson     | australia   |               23 | 33             | watson@gmail.com |
++----+------------+-------------+------------------+----------------+------------------+
+3 rows in set (0.00 sec)
+mysql> select * from building order by owner_name desc;
++----+------------+-------------+------------------+----------------+------------------+
+| id | owner_name | address     | building_type_id | contact_number | email_address    |
++----+------------+-------------+------------------+----------------+------------------+
+|  2 | watson     | australia   |               23 | 33             | watson@gmail.com |
+|  3 | fab        | southafrica |               34 | 12             | fab@gmail.com    |
+|  1 | dhoni      | chennai     |               12 | 7              | dhoni@gmail.com  |
++----+------------+-------------+------------------+----------------+------------------+
+3 rows in set (0.00 sec)
+mysql> create table meter (id int,meter_number varchar(100) NOT NULL,building_id int NOT NULL,PRIMARY KEY (id));
+Query OK, 0 rows affected (0.65 sec)
+
+mysql> desc meter;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| id           | int          | NO   | PRI | NULL    |       |
+| meter_number | varchar(100) | NO   |     | NULL    |       |
+| building_id  | int          | NO   |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+3 rows in set (0.11 sec)
+
+mysql> INSERT INTO meter values (1,'123zxc23',12);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> INSERT INTO meter values (2,'esf232423',34);
+Query OK, 1 row affected (0.18 sec)
+
+mysql> INSERT INTO meter values (3,'352342cs',45);
+Query OK, 1 row affected (0.16 sec)
+
+mysql> select * from meter;
++----+--------------+-------------+
+| id | meter_number | building_id |
++----+--------------+-------------+
+|  1 | 123zxc23     |          12 |
+|  2 | esf232423    |          34 |
+|  3 | 352342cs     |          45 |
++----+--------------+-------------+
+3 rows in set (0.00 sec)
+mysql> select SUBSTRING(meter_number,1,3) AS ExtractString FROM meter;
++---------------+
+| ExtractString |
++---------------+
+| 123           |
+| esf           |
+| 352           |
++---------------+
+3 rows in set (0.00 sec)
+mysql> select * from meter order by meter_number desc;
++----+--------------+-------------+
+| id | meter_number | building_id |
++----+--------------+-------------+
+|  2 | esf232423    |          34 |
+|  3 | 352342cs     |          45 |
+|  1 | 123zxc23     |          12 |
++----+--------------+-------------+
+3 rows in set (0.00 sec)
+mysql> select LEFT(meter_number,3) AS ExtractString FROM meter;
++---------------+
+| ExtractString |
++---------------+
+| 123           |
+| esf           |
+| 352           |
++---------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from meter order by meter_number desc;
++----+--------------+-------------+
+| id | meter_number | building_id |
++----+--------------+-------------+
+|  2 | esf232423    |          34 |
+|  3 | 352342cs     |          45 |
+|  1 | 123zxc23     |          12 |
++----+--------------+-------------+
+3 rows in set (0.00 sec)
+mysql> select count(*) from meter where meter.id=3;
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.37 sec)
+
+mysql> select count(*) from meter where meter.meter_number='es';
++----------+
+| count(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from meter where meter.meter_number='esf232423';
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+mysql> select * from electricity_connection_type order by connection_name;
++----+----------------------+
+| id | connection_name      |
++----+----------------------+
+|  2 | broadband_connection |
+|  1 | WIFI                 |
++----+----------------------+
+2 rows in set (0.05 sec)
+
+mysql> select * from electricity_connection_type order by connection_name desc;
++----+----------------------+
+| id | connection_name      |
++----+----------------------+
+|  1 | WIFI                 |
+|  2 | broadband_connection |
++----+----------------------+
+2 rows in set (0.00 sec)
