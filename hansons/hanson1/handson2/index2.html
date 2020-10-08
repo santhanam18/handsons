@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events List</title>
+</head>
+<script src="./script2.js" defer></script>
+<link rel="stylesheet" href="style2.css">
+<body>
+  <h2>Events List</h2>  
+  <div>
+    Enter event name: <input type="text" id="event"><br><br>
+  <button  onclick="addEvent()" id="add">Push</button>
+  <button  onclick="popEvent()" id="pop">Pop</button>
+  <button  onclick="sortDisplay()" id="display">Display</button>
+  </div> 
+  <div id="Message">
+  </div>
+
+  <div>
+      <table>
+        <tr>
+          <th id="Result"></th>
+        </tr>
+        <tr>
+          <td id="addedEvent"></td>
+        </tr>
+</table>
+</div>
+</body>
+</html>

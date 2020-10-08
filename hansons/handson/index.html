@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+</head>
+<script src="./script.js" defer></script>
+<link rel="stylesheet" href="style.css">
+<body>
+  <h2>Validating Duplicate Event</h2>  
+  <div>
+    Enter event name: <input type="text" id="event"><br><br>
+  <button  onclick="addEvent()" id="add">Add Event</button>
+  <button  onclick="displayEvent()" id="display">Display Event</button>
+  </div> 
+  <div id="Message">
+  </div>
+
+  <div>
+      <table>
+        <tr>
+          <th id="Result"></th>
+        </tr>
+        <th id="EventName"></th>
+        <tr>
+          <td id="addedEvent"></td>
+        </tr>
+</table>
+</div>
+</body>
+</html>
